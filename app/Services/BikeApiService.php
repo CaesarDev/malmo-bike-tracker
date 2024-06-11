@@ -53,6 +53,9 @@ class BikeApiService
         $fromStation = $stations[$stationId];
 
         return $stations->filter(function ($station) use ($fromStation) {
+            if($station['id'] == $fromStation['id']){
+                return false;
+            }
             $distance = $this->calculateDistance($fromStation, $station);
             return $distance < 300;
         });
