@@ -1,20 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="45">
-    <title>{{ $stationStatus['availability']['bikes'] }} - {{ $stationInfo['name'] }}</title>
-    @vite('resources/css/app.css')
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-</head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-<div class="flex flex-col">
-    <a href="/">
-        <img src="{{ asset('images/malmo-bike-tracker.png') }}" alt="Malmö Bike Tracker Logo"
-             class="block mx-auto max-w-[450px]">
-    </a>
+@extends('layouts.app')
+@section('title',  "{$stationStatus['availability']['bikes']} - {$stationInfo['name']}")
+@section('content')
+<div class="flex flex-col items-center">
     <div class="px-6 py-4 w-full max-w-md rounded overflow-hidden shadow-lg bg-white">
         <div class="">
             <div class="font-bold text-xl mb-2">{{ $stationInfo['id'] }} {{ $stationInfo['name'] }}</div>
@@ -52,7 +39,7 @@
                 L.marker(stationLocation).addTo(map);
             </script>
         </div>
-        <div class="pt-4 pb-2 bg-gray-50">
+        <div class="pt-4 pb-2 opacity-70">
             <x-pill color="{{ $stationStatus['statusDetail']['calendarStatus'] == 'Open' ? 'blue' : 'red' }}">
                 {{ $stationStatus['statusDetail']['calendarStatus'] }}
             </x-pill>
@@ -78,5 +65,4 @@
         </div>
     </div>
 </div>
-</body>
-</html>
+@endsection

@@ -1,21 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Malmö Bike Tracker</title>
-    @vite('resources/css/app.css')
-</head>
-<body class="bg-gray-200 font-sans">
-
+@extends('layouts.app')
+@section('title',  "MalmÖ Bike Tracker")
+@section('content')
 <div class="container mx-auto py-8 max-w-[1200px]">
-    <h1 class="text-4xl text-center font-extrabold text-gray-900 mb-12">Malmö Bike Tracker</h1>
-
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         <!-- Repeat this block for each bike station -->
         @foreach($stationStatus as $station)
             <div class="{{ $station['availability']['bikes'] > 5 ? 'bg-white' : 'bg-red-100' }} p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <img src="https://loremflickr.com/320/240" alt="Station Image" class="w-full h-20 object-cover rounded-md mb-4">
+                <img src="{{ asset('images/stations/011.png') }}" alt="Station Image" class="w-full h-42 object-cover rounded-md mb-4">
                 <h2 class="text-xl font-bold text-gray-800 mb-2 underline">
                     <a href="/station/{{ $station['id'] }}">
                         {{ $station['id'] }}
@@ -36,6 +27,4 @@
         <!-- End of block -->
     </div>
 </div>
-
-</body>
-</html>
+@endsection
