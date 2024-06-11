@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Cache;
 
 class BikeApiService
 {
-    protected $client;
+    protected Client $client;
 
     public function __construct()
     {
@@ -26,7 +26,7 @@ class BikeApiService
             return $response->getBody()->getContents();
         });
 
-        return json_decode($content, true);
+        return collect(json_decode($content, true))->keyBy('id');
     }
 
     public function getStationInfo()
@@ -36,6 +36,51 @@ class BikeApiService
             return $response->getBody()->getContents();
         });
         return collect(json_decode($content, true))->keyBy('id');
-        //return json_decode($content, true);
+    }
+
+    public function getNearbyStations($stationId)
+    {
+        return Cache::remember('nearbyStations-{$stationId}', now()->addDays(10), function () use ($stationId) {
+            return $this->calculateNearbyStations($stationId);
+        });
+
+
+    }
+
+    private function calculateNearbyStations($stationId)
+    {
+        $stations = $this->getStationInfo();
+        $fromStation = $stations[$stationId];
+
+        return $stations->filter(function ($station) use ($fromStation) {
+            $distance = $this->calculateDistance($fromStation, $station);
+            return $distance < 300;
+        });
+    }
+
+    private function calculateDistance(mixed $station1, mixed $station2)
+    {
+        $lat1 = $station1['location']['lat'];
+        $lon1 = $station1['location']['lon'];
+        $lat2 = $station2['location']['lat'];
+        $lon2 = $station2['location']['lon'];
+       return $this->haversineGreatCircleDistance($lat1, $lon1, $lat2, $lon2);
+    }
+
+    function haversineGreatCircleDistance(
+        $latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000)
+    {
+        // convert from degrees to radians
+        $latFrom = deg2rad($latitudeFrom);
+        $lonFrom = deg2rad($longitudeFrom);
+        $latTo = deg2rad($latitudeTo);
+        $lonTo = deg2rad($longitudeTo);
+
+        $latDelta = $latTo - $latFrom;
+        $lonDelta = $lonTo - $lonFrom;
+
+        $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
+                cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+        return $angle * $earthRadius;
     }
 }
