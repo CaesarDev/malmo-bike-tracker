@@ -15,11 +15,7 @@
             <span class="font-semibold">Available Bikes:</span> {{ $station->available_bikes }}
         </p>
         <p class="text-gray-700 text-base">
-            <span class="font-semibold">Available Slots:</span> {{ $station->available_slots }}
-        </p>
-        <p class="text-gray-700 text-base">
-                <span
-                    class="font-semibold">Total Slots:</span> {{ $station->available_bikes + $station->available_slots }}
+            <span class="font-semibold">Available Slots:</span> {{ $station->slots ?? 0 }}
         </p>
         <p class="text-gray-700 text-base">
             <span class="font-semibold">Location:</span> {{ $station->location['lat'] }}

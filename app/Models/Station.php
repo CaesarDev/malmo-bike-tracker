@@ -43,7 +43,6 @@ class Station extends Model
     {
         $stationStatuses = app(BikeApiService::class)->getStationStatus();
         $stationStatus = $stationStatuses[$this->id];
-
         $this->fill([
             'available_bikes' => $stationStatus['availability']['bikes'],
             'slots' => $stationStatus['availability']['slots'],
@@ -65,4 +64,8 @@ class Station extends Model
         return in_array($this->id, $this->stationsWithImage);
     }
 
+    public function getAddressAttribute()
+    {
+        return $this->attributes['address'] . ' ' . $this->attributes['addressNumber'] . ($this->attributes['zipCode'] ? ', ' . $this->attributes['zipCode'] : '');
+    }
 }
