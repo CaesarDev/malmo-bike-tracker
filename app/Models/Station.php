@@ -27,6 +27,13 @@ class Station extends Model
         ];
     public $incrementing = false;
 
+    public $stationsWithImage = [
+        '001',
+        '002',
+        '003',
+        '011',
+    ];
+
     public function __construct($attributes = [])
     {
         parent::__construct($attributes);
@@ -50,6 +57,11 @@ class Station extends Model
     public function getNearbyStations()
     {
         return app(BikeApiService::class)->getNearbyStations($this->id);
+    }
+
+    public function getHasStationImageAttribute()
+    {
+        return in_array($this->id, $this->stationsWithImage);
     }
 
 }
