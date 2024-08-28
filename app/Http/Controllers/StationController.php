@@ -14,7 +14,7 @@ class StationController extends Controller
     }
     public function show($stationId)
     {
-        // TODO refactor this to use the service
+        // TODO refactor this to use the service and Station model
         $stationInfo = $this->bikeStationService->getStationInfo();
         $stationStatus = $this->bikeStationService->getStationStatus();
         $nearbyStations = $this->bikeStationService->getNearbyStations($stationId);
