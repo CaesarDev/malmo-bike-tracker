@@ -17,11 +17,11 @@
         <p class="text-gray-700 text-base">
             <span class="font-semibold">Available Slots:</span> {{ $station->slots ?? 0 }}
         </p>
+        <div id="mapid" class="h-[200px] mt-4"></div>
         <p class="text-gray-700 text-base">
             <span class="font-semibold">Location:</span> {{ $station->location['lat'] }}
             , {{ $station->location['lon'] }}
         </p>
-        <div id="mapid" class="h-[200px] mt-4"></div>
         <script>
             var stationLocation = [{{ $station->location['lat'] }}, {{ $station->location['lon'] }}];
             var map = L.map('mapid').setView(stationLocation, 16);
