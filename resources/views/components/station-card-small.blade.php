@@ -59,4 +59,7 @@
             @endforeach
         </ul>
     </div>
+    <div class="pt-6">
+        <img src="{{ asset("images/stations/$station->id.jpg") }}" alt="Station Image" class="w-full h-40 object-cover rounded-md mb-4">
+    </div>
 </div>
