@@ -11,9 +11,9 @@
                 @else
                     <img src="{{ asset("images/stations/default.jpg") }}" alt="Default Station Image" class="opacity-70 w-full h-40 object-cover rounded-md mb-4">
                 @endif
-                <h2 class="text-xl font-bold text-gray-800 mb-2 underline">
+                <h2 class="text-md font-bold text-gray-800 mb-2 underline">
                     <a href="/station/{{ $station->id }}">
-                        {{ $station->id }}
+                        {{ $station->id }} - {{ $station->name }}
                     </a>
                 </h2>
                 <p class="text-gray-600">
