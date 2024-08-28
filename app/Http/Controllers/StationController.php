@@ -14,16 +14,10 @@ class StationController extends Controller
     }
     public function show($stationId)
     {
-        // TODO refactor this to use the service and Station model
-        $stationInfo = $this->bikeStationService->getStationInfo();
-        $stationStatus = $this->bikeStationService->getStationStatus();
-        $nearbyStations = $this->bikeStationService->getNearbyStations($stationId);
+        $station = $this->bikeStationService->getSingleStation($stationId);
 
         return view('station', [
-            'stationInfo' => $stationInfo[$stationId],
-            'stationsInfo' => $stationInfo,
-            'stationStatus' => $stationStatus[$stationId],
-            'nearbyStations' => $nearbyStations,
+            'station' => $station,
         ]);
     }
 }

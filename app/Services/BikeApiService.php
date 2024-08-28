@@ -20,6 +20,15 @@ class BikeApiService
         ]);
     }
 
+    public function getSingleStation($stationId)
+    {
+        $stationInfo = $this->getStationInfo();
+        $station = new Station($stationInfo[$stationId]);
+        $station->getStatusData();
+        return $station;
+    }
+
+    // Get status of all stations including available bikes and slots
     public function getStationStatus()
     {
         $content = Cache::remember('apiResponse', now()->addMinutes(10), function () {
@@ -30,6 +39,7 @@ class BikeApiService
         return collect(json_decode($content, true))->keyBy('id');
     }
 
+    // Get all stations as Station models with status data fetched
     public function getStationModels()
     {
         return $this->getStationInfo()->map(function ($station) {
@@ -39,6 +49,7 @@ class BikeApiService
         });
     }
 
+    // Get general info about all stations
     public function getStationInfo()
     {
         $content = Cache::remember('stations', now()->addDays(10), function () {
@@ -56,8 +67,6 @@ class BikeApiService
         return Cache::remember("nearbyStations-{$stationId}", now()->addDays(10), function () use ($stationId) {
             return $this->calculateNearbyStations($stationId);
         });
-
-
     }
 
     private function calculateNearbyStations($stationId)

@@ -21,6 +21,9 @@ class Station extends Model
         'operationalStatus',
         'connectivityStatus',
         'mobileCheckoutStatus',
+        'districtCode',
+        'districtName',
+        'stationType',
         ];
     public $incrementing = false;
 
@@ -42,7 +45,11 @@ class Station extends Model
             'connectivityStatus' => $stationStatus['statusDetail']['connectivityStatus'],
             'mobileCheckoutStatus' => $stationStatus['mobileCheckoutStatus'],
         ]);
+    }
 
+    public function getNearbyStations()
+    {
+        return app(BikeApiService::class)->getNearbyStations($this->id);
     }
 
 }
