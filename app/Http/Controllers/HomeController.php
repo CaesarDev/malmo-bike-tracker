@@ -16,8 +16,7 @@ class HomeController extends Controller
     public function __invoke()
     {
         return view('home', [
-            'stationInfo' =>  $this->bikeStationService->getStationInfo(),
-            'stationStatus' =>  $this->bikeStationService->getStationStatus(),
+            'stations' => $this->bikeStationService->getStationModels(),
         ]);
     }
 }

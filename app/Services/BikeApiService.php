@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Station;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cache;
 
@@ -29,18 +30,30 @@ class BikeApiService
         return collect(json_decode($content, true))->keyBy('id');
     }
 
+    public function getStationModels()
+    {
+        return $this->getStationInfo()->map(function ($station) {
+            $station = new Station($station);
+            $station->getStatusData();
+            return $station;
+        });
+    }
+
     public function getStationInfo()
     {
         $content = Cache::remember('stations', now()->addDays(10), function () {
             $response = $this->client->request('GET', 'station');
             return $response->getBody()->getContents();
         });
+
         return collect(json_decode($content, true))->keyBy('id');
     }
 
     public function getNearbyStations($stationId)
     {
-        return Cache::remember('nearbyStations-{$stationId}', now()->addDays(10), function () use ($stationId) {
+        // If you need to reset cache during devlopment use:
+        // Cache::forget('nearbyStations-{$stationId}');
+        return Cache::remember("nearbyStations-{$stationId}", now()->addDays(10), function () use ($stationId) {
             return $this->calculateNearbyStations($stationId);
         });
 
