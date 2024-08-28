@@ -32,6 +32,7 @@ class Station extends Model
         '002',
         '003',
         '011',
+        '017',
     ];
 
     public function __construct($attributes = [])
