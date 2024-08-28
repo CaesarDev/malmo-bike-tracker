@@ -8,6 +8,9 @@ Welcome to **Malmö Bike Tracker**! This repository is dedicated to providing re
 - ~~**Station Information**: Detailed info about each bike station, including location and capacity.~~
 - ~~**User-Friendly Interface**: Designed for quick and easy access to bike availability data.~~
 
+## Development
+Start the server by running `sail up` in the root directory. Then run `sail npm run dev` to start the development server.
+
 ## Contributing
 
 We welcome contributions! If you have suggestions for improvements or find any bugs, please open an issue or submit a pull request.
