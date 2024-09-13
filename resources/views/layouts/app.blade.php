@@ -8,6 +8,7 @@
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    @bukStyles
 </head>
 <body class="bg-gray-100 min-h-screen pb-12">
     <a href="/">
@@ -18,5 +19,6 @@
     <footer class="text-center pt-4">
         This is a service developed by <a class="underline" href="://caesardev.se">Caesar</a> in Malmö <3
     </footer>
+    @bukScripts
 </body>
 </html>
