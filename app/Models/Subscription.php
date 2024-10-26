@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\BikeApiService;
 use Illuminate\Database\Eloquent\Model;
 
 class Subscription extends Model
@@ -15,4 +16,10 @@ class Subscription extends Model
         'weekdays',
         'weekends',
     ];
+
+    public function station()
+    {
+        $bikeApiService = app(BikeApiService::class);
+        return $bikeApiService->getSingleStation($this->station_id);
+    }
 }
