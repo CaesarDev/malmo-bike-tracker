@@ -14,6 +14,7 @@ class CreateSubscription extends Component
     public $end_time;
     public $weekdays = null;
     public $weekends = null;
+    public $formSubmitted = false;
 
     protected $rules = [
         'station_id' => 'required|string',
@@ -28,6 +29,7 @@ class CreateSubscription extends Component
         'station_id.required' => 'The station id is required',
         'phone_number.required' => 'The phone number is required',
         'start_time.required' => 'The start time is required',
+        // TODO: Ensure alert period is maximum X hours
         'end_time.required' => 'The end time is required',
         'weekdays.required_without' => 'You need to select either weekdays or weekends',
         'weekends.required_without' => '',
@@ -55,6 +57,8 @@ class CreateSubscription extends Component
             'weekends' => $this->weekends ?? false,
         ]);
         $this->reset();
+
+        $this->formSubmitted = true;
 
         session()->flash('message', 'Subscription created successfully.');
     }
