@@ -6,11 +6,13 @@
         <!-- Repeat this block for each bike station -->
         @foreach($stations as $station)
             <div class="{{ $station->available_bikes > 5 ? 'bg-white' : 'bg-red-100' }} p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-                @if($station->hasStationImage)
-                    <img src="{{ asset("images/stations/$station->id.jpg") }}" alt="Station Image" class="w-full h-40 object-cover rounded-md mb-4">
-                @else
-                    <img src="{{ asset("images/stations/default.jpg") }}" alt="Default Station Image" class="opacity-70 w-full h-40 object-cover rounded-md mb-4">
-                @endif
+                <a href="/station/{{ $station->id }}">
+                    @if($station->hasStationImage)
+                        <img src="{{ asset("images/stations/$station->id.jpg") }}" alt="Station Image" class="w-full h-40 object-cover rounded-md mb-4">
+                    @else
+                        <img src="{{ asset("images/stations/default.jpg") }}" alt="Default Station Image" class="opacity-70 w-full h-40 object-cover rounded-md mb-4">
+                    @endif
+                </a>
                 <h2 class="text-md font-bold text-gray-800 mb-2 underline">
                     <a href="/station/{{ $station->id }}">
                         {{ $station->id }} - {{ $station->name }}
