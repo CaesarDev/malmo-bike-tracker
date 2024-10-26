@@ -68,4 +68,46 @@ class Station extends Model
     {
         return $this->attributes['address'] . ' ' . $this->attributes['addressNumber'] . ($this->attributes['zipCode'] ? ', ' . $this->attributes['zipCode'] : '');
     }
+
+    public function getAvailableBikesStatusBgColorAttribute()
+    {
+        if($this->available_bikes > 5) {
+            return 'bg-green-500';
+        }elseif($this->available_bikes > 0) {
+            return 'bg-orange-500';
+        }else {
+            return 'bg-red-500';
+        }
+    }
+    public function getAvailableBikesStatusTextColorAttribute()
+    {
+        if($this->available_bikes > 5) {
+            return 'text-green-500';
+        }elseif($this->available_bikes > 0) {
+            return 'text-orange-500';
+        }else {
+            return 'text-red-500';
+        }
+    }
+
+    public function getAvailableSlotsStatusBgColorAttribute()
+    {
+        if($this->slots > 5) {
+            return 'bg-green-500';
+        }elseif($this->slots > 0) {
+            return 'bg-orange-500';
+        }else {
+            return 'bg-red-500';
+        }
+    }
+    public function getAvailableSlotsStatusTextColorAttribute()
+    {
+        if($this->slots > 5) {
+            return 'text-green-500';
+        }elseif($this->slots > 0) {
+            return 'text-orange-500';
+        }else {
+            return 'text-red-500';
+        }
+    }
 }

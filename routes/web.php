@@ -7,3 +7,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', Homecontroller::class);
 
 Route::get('station/{station}', [StationController::class, 'show']);
+
+Route::get('q/{station}', [StationController::class, 'quicklook']);

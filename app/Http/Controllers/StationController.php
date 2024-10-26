@@ -20,4 +20,13 @@ class StationController extends Controller
             'station' => $station,
         ]);
     }
+
+    public function quicklook($stationId)
+    {
+        $station = $this->bikeStationService->getSingleStation($stationId);
+
+        return view('quicklook', [
+            'station' => $station,
+        ]);
+    }
 }
